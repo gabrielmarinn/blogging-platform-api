@@ -5,13 +5,17 @@ import { randomUUID } from 'crypto'
 export function createPost(
   title: string,
   content: string,
-  authorId: string
+  authorId: string,
+  category?: string,
+  tags?: string[]
 ): Post {
   const newPost: Post = {
     id: randomUUID(),
     title,
     content,
     authorId,
+    category,
+    tags,
     createdAt: new Date(),
     updatedAt: new Date(),
   }
@@ -30,6 +34,16 @@ export function getPostById(id: string) {
     throw new Error('Post not found')
   }
   return post
+}
+
+export function getPostsByCategory(category: string): Post[] {
+  return posts.filter(
+    (p) => p.category?.toLowerCase() === category.toLowerCase()
+  )
+}
+
+export function getPostsByTag(tag: string): Post[] {
+  return posts.filter((p) => p.tags?.includes(tag))
 }
 
 export function updatePost(

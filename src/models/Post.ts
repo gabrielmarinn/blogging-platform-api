@@ -3,6 +3,8 @@ export interface Post {
   title: string
   content: string
   authorId: string
+  category?: string
+  tags?: string[]
   createdAt: Date
   updatedAt: Date
 }

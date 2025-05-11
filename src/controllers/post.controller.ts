@@ -3,6 +3,8 @@ import {
   createPost,
   getAllPosts,
   getPostById,
+  getPostsByCategory,
+  getPostsByTag,
   updatePost,
   deletePost,
 } from '../services/post.service'
@@ -17,6 +19,18 @@ export function handleCreatePost(req: Request, res: Response) {
 
 export function handleGetAllPosts(req: Request, res: Response) {
   const allPosts = getAllPosts()
+  const { category, tag } = req.query
+
+  if (category) {
+    const results = getPostsByCategory(String(category))
+    return void res.status(200).json(results)
+  }
+
+  if (tag) {
+    const results = getPostsByTag(String(tag))
+    return void res.status(200).json(results)
+  }
+
   return void res.status(200).json(allPosts)
 }
 
