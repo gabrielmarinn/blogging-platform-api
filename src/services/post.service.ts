@@ -31,3 +31,27 @@ export function getPostById(id: string) {
   }
   return post
 }
+
+export function updatePost(
+  id: string,
+  title: string,
+  content: string,
+  requesterId: string
+): Post {
+  const post = posts.find((p) => p.id === id)
+  if (!post) throw new Error('Post not found')
+  if (post.authorId !== requesterId) throw new Error('Action not permitted')
+
+  post.title = title
+  post.content = content
+  post.updatedAt = new Date()
+  return post
+}
+
+export function deletePost(id: string, requesterId: string): void {
+  const index = posts.findIndex((p) => p.id === id)
+  if (index === -1) throw new Error('Post not found')
+  if (posts[index].authorId !== requesterId)
+    throw new Error('Action not permitted')
+  posts.splice(index, 1)
+}
