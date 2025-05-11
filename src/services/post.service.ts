@@ -19,3 +19,7 @@ export function createPost(
   posts.push(newPost)
   return newPost
 }
+
+export function getAllPosts() {
+  return posts
+}
