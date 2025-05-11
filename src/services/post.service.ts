@@ -23,3 +23,11 @@ export function createPost(
 export function getAllPosts() {
   return posts
 }
+
+export function getPostById(id: string) {
+  const post = posts.find((p) => p.id === id)
+  if (!post) {
+    throw new Error('Post not found')
+  }
+  return post
+}
